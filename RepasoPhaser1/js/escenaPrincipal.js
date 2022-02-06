@@ -49,8 +49,6 @@ class escenaPrincipal extends  Phaser.Scene{
         this.physics.add.collider(this.jugador, this.plataformas);
         this.physics.add.overlap(this.jugador, this.estrellas, this.coleccionarEstrella, null, this);
         this.physics.add.overlap(this.jugador, this.bomb, this.tocarBomba, null, this);
-
-
     }
 
     update(){
