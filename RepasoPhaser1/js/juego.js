@@ -13,11 +13,7 @@ var config = {
             }
         }
     },
-    scene: {
-        preload:preload,
-        create: create,
-        scene: escenaPrincipal
-    }
+    scene:  escenaPrincipal,
 };
 
 var juego = new Phaser.Game(config);
