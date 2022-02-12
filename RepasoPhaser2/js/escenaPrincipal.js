@@ -4,6 +4,8 @@ class escenaPrincipal extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'img/Mapa.json');
         this.load.image('jugador', 'img/idle-1.png');
         this.load.image('bg', 'img/sky.png');
+
+        this.load.atlas('spritesjugador', 'res/player/jugadoratlas.png', 'res/player/jugadoratlas_atlas.json');
     }
 
     create() {
@@ -16,11 +18,13 @@ class escenaPrincipal extends Phaser.Scene {
         var layerTierra = map.createLayer('Terreno', tiles, 0, 0);
         layerTierra.setCollisionByExclusion(-1, true);
 
-        var jugador1 = new jugador(this, 75, 50, 'jugador');
-        this.physics.add.collider(jugador1, layerTierra);
+        this.jugador1 = new jugador(this, 75, 50, 'jugador');
+        this.physics.add.collider(this.jugador1, layerTierra);
+        this.physics.add.collider(this.jugador1, layerAgua);
+
     }
 
-    update() {
-
+    update(time, delta) {
+        this.jugador1.update(time, delta);
     }
 }

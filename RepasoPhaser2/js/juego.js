@@ -5,14 +5,18 @@ var config = {
     parent: "canvas",
     mode:Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+    framerate: 30,
     physics:{
         default: 'arcade',
         arcade: {
             gravity:{
                 y: 300
-            }
+            },
+            debug: true,
+            framerate: 30
         }
     },
+
     scene:  escenaPrincipal,
 };
 
@@ -23,5 +27,9 @@ function preload(){
 }
 
 function create(){
+
+}
+
+function update(time, delta){
 
 }
