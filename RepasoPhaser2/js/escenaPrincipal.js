@@ -5,6 +5,8 @@ class escenaPrincipal extends Phaser.Scene {
         this.load.image('jugador', 'res/idle-1.png');
         this.load.image('mushroom', 'res/mushroom.png');
         this.load.image('bg', 'res/sky.png');
+        this.load.image('box', 'res/box.png');
+
         this.load.atlas('spritesjugador', 'res/player/jugadoratlas.png', 'res/player/jugadoratlas_atlas.json');
     }
 
@@ -32,15 +34,34 @@ class escenaPrincipal extends Phaser.Scene {
             }
         }
         this.physics.add.collider(this.mushrooms, layerTierra);
-
+        //this.jugador1.setCollideWorldBounds(true);
 
         this.cameras.main.startFollow(this.jugador1);
         this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
-        this.jugador1.setCollideWorldBounds(true);
+
+        this.boxGroup = this.physics.add.group({
+           collideWorldBounds:true,
+           immovable:true
+        });
+        this.box = new box(this, 190,20, 'box');
+        this.box2 = new box(this, 480,20, 'box');
+        this.boxGroup.add(this.box);
+        this.boxGroup.add(this.box2);
+
+        this.physics.add.collider(this.boxGroup, layerTierra);
+        this.physics.add.collider(this.boxGroup, this.jugador1);
+        this.physics.add.collider(this.jugador1, this.boxGroup, this.OnCollisionEnter, null, this);
+
+
+    }
+
+    onCollisionEnter(jugador1, box){
 
     }
 
     update(time, delta) {
         this.jugador1.update(time, delta);
     }
+
+
 }

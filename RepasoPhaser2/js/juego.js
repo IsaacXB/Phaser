@@ -30,6 +30,6 @@ function create(){
 
 }
 
-function update(time, delta){
+function update(){
 
 }
