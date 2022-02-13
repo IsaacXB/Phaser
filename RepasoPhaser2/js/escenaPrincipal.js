@@ -1,10 +1,10 @@
 class escenaPrincipal extends Phaser.Scene {
     preload() {
-        this.load.image('tile', 'img/Tileset.png');
-        this.load.tilemapTiledJSON('map', 'img/Mapa.json');
-        this.load.image('jugador', 'img/idle-1.png');
-        this.load.image('bg', 'img/sky.png');
-
+        this.load.image('tile', 'res/Tileset.png');
+        this.load.tilemapTiledJSON('map', 'res/Mapa.json');
+        this.load.image('jugador', 'res/idle-1.png');
+        this.load.image('mushroom', 'res/mushroom.png');
+        this.load.image('bg', 'res/sky.png');
         this.load.atlas('spritesjugador', 'res/player/jugadoratlas.png', 'res/player/jugadoratlas_atlas.json');
     }
 
@@ -18,9 +18,25 @@ class escenaPrincipal extends Phaser.Scene {
         var layerTierra = map.createLayer('Terreno', tiles, 0, 0);
         layerTierra.setCollisionByExclusion(-1, true);
 
-        this.jugador1 = new jugador(this, 75, 50, 'jugador');
+        this.jugador1 = new jugador(this, 75, 50);
         this.physics.add.collider(this.jugador1, layerTierra);
         this.physics.add.collider(this.jugador1, layerAgua);
+
+        var objectsJSON = map.getObjectLayer('Items')['objects'];
+        this.mushrooms = [];
+        for (let i = 0; i < objectsJSON.length; i++){
+            var obj = objectsJSON[i];
+            if (obj.gid == 115)
+            {
+                this.mushrooms.push(new mushroom(this, obj.x, obj.y));
+            }
+        }
+        this.physics.add.collider(this.mushrooms, layerTierra);
+
+
+        this.cameras.main.startFollow(this.jugador1);
+        this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+        this.jugador1.setCollideWorldBounds(true);
 
     }
 

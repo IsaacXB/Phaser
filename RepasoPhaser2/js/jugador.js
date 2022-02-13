@@ -1,9 +1,6 @@
-class jugador extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, playerID) {
-        super(scene, x, y, playerID);
-        this.scene = scene;
-        this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
+class jugador extends mySprite {
+    constructor(scene, x, y) {
+        super(scene, x, y, 'jugador');
         this.cursores = this.scene.input.keyboard.createCursorKeys();
 
         this.anims.create({
@@ -12,7 +9,7 @@ class jugador extends Phaser.Physics.Arcade.Sprite {
                 {
                     start: 1, end:4, prefix: 'idle-'
                 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: -1
         });
 
@@ -22,7 +19,7 @@ class jugador extends Phaser.Physics.Arcade.Sprite {
                 {
                     start: 1, end:16, prefix: 'walk-'
                 }),
-            frameRate: 10,
+            frameRate: 16,
             repeat: -1
         });
 
@@ -32,7 +29,7 @@ class jugador extends Phaser.Physics.Arcade.Sprite {
                 {
                     start: 1, end:4, prefix: 'jump-'
                 }),
-            frameRate: 10,
+            frameRate: 8,
             repeat: -1
         });
 
@@ -64,7 +61,7 @@ class jugador extends Phaser.Physics.Arcade.Sprite {
         }
         if (this.cursores.space.isDown && this.body.onFloor())
         {
-            this.body.setVelocityY(-20 * delta);
+            this.body.setVelocityY(-40 * delta);
         }
     }
 
