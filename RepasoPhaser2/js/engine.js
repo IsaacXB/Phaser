@@ -1,4 +1,64 @@
-class engine {
+class Scene extends Phaser.Scene{
+
+    constructor() {
+        super('game');
+        this.activeEntities = [];
+        this.entityMap = new Map();
+    }
+
+    addEntity(entity , autoActivate = true)
+    {
+        this.entityMap.set(entity.getName(), entity);
+        if (autoActivate)
+        {
+            this.activeEntities.push(entity);
+        }
+    }
+
+    deleteEntity(entity)
+    {
+        this.deativateEntity(entity);
+        // opcional si queremos eliminar entidades completamente o solo desactivarlas
+        this.entityMap.delete(entity.getName());
+    }
+    ativateEntity(entity)
+    {
+        var index = this.activeEntities.indexOf(entity);
+        if (index ==  -1){
+            this.activeEntities.push(index, 1);
+        }
+    }
+
+    deativateEntity(entity)
+    {
+        var index = this.activeEntities.indexOf(entity);
+        if (index >  -1){
+            this.activeEntities.splice(index, 1);
+        }
+    }
+
+    findEntityByName(name)
+    {
+        return this.entityMap.get(name);
+    }
+
+    start(){
+        for (var i =0; i < this.activeEntities.length; i++)
+        {
+            this.activeEntities[i].start();
+        }
+    }
+
+    update(time, delta){
+        for (var i =0; i < this.activeEntities.length; i++)
+        {
+            this.activeEntities[i].update(time, delta);
+        }
+    }
+
+}
+
+class entity {
     constructor(name, scene) {
         this.name = name;
         this.scene = scene;
@@ -84,3 +144,15 @@ class Component{
     }
 
 }
+
+class SpriteRender extends Phaser.Physics.Arcade.Sprite{
+    constructor(entity, x, y, sprite) {
+        super(entity.getScene(), x, y, sprite);
+        this.componentInit(entity);
+        this.entidad.getScene().add.existing(this);
+
+    }
+}
+
+SpriteRender.prototype.getEntity = Component.prototype.getEntity;
+SpriteRender.prototype.componentInit = Component.prototype.init;

@@ -1,4 +1,4 @@
-class escenaPrincipal extends Phaser.Scene {
+class escenaPrincipal extends Scene {
     preload() {
         this.load.image('tile', 'res/Tileset.png');
         this.load.tilemapTiledJSON('map', 'res/Mapa.json');
