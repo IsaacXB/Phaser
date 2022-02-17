@@ -1,0 +1,23 @@
+/*Style sheet, where we setup the canvas and background to give the page a little better interface*/
+body {
+    height: inherit;
+    background-color: lightblue;
+}
+
+h1 {
+    letter-spacing: -1px;
+    margin: 10px;
+    text-align: center;
+    text-shadow: 0 0 4px white;
+}
+canvas {
+    margin: 0px 100px 100px 100px;
+    border: 10px double gray;
+    background-color: white;
+}
+button {
+    text-align: center;
+    font-size: 2rem;
+    margin-left: 100px;
+}
+
