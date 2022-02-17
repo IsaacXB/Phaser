@@ -20,26 +20,36 @@ class escenaPrincipal extends Scene {
         var layerTierra = map.createLayer('Terreno', tiles, 0, 0);
         layerTierra.setCollisionByExclusion(-1, true);
 
-        this.jugador1 = new jugador(this, 75, 50);
-        this.physics.add.collider(this.jugador1, layerTierra);
-        this.physics.add.collider(this.jugador1, layerAgua);
+        //this.jugador1 = new jugador(this, 75, 50);
+        this.jugador1 = new entity('jugador1', this);
+        this.jugador1Sprite = new SpriteRender(this.jugador1, 75,50);
+        this.jugador1.addComponent(this.jugador1Sprite);
+        this.jugador1.addComponent(new RigidBody(this.jugador1, true));
+        //this.jugador1.addComponent(new jugador(this.jugador1, layerTierra));
+
+        this.physics.add.collider(this.jugador1Sprite, layerAgua);
 
         var objectsJSON = map.getObjectLayer('Items')['objects'];
-        this.mushrooms = [];
+        //this.mushrooms = [];
         for (let i = 0; i < objectsJSON.length; i++){
             var obj = objectsJSON[i];
             if (obj.gid == 115)
             {
-                this.mushrooms.push(new mushroom(this, obj.x, obj.y));
+                let mushroom = new entity('mushroom' + obj.id, this);
+                mushroom.addComponent(new SpriteRender(mushroom, obj.x+16, obj.y-16, 'mushroom'));
+                mushroom.addComponent(new RigidBody(mushroom, false));
+                mushroom.addComponent(new mushroom(mushroom, this.jugador1Sprite));
+                mushroom.addComponent(new destroy(mushroom));
+                //this.mushrooms.push(new mushroom(this, obj.x, obj.y));
             }
         }
-        this.physics.add.collider(this.mushrooms, layerTierra);
+        this.physics.add.collider(mushroom, layerTierra);
         //this.jugador1.setCollideWorldBounds(true);
 
         this.cameras.main.startFollow(this.jugador1);
         this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
 
-        this.boxGroup = this.physics.add.group({
+        /* this.boxGroup = this.physics.add.group({
            collideWorldBounds:true,
            immovable:true
         });
@@ -51,7 +61,7 @@ class escenaPrincipal extends Scene {
         this.physics.add.collider(this.boxGroup, layerTierra);
         this.physics.add.collider(this.boxGroup, this.jugador1);
         this.physics.add.collider(this.jugador1, this.boxGroup, this.OnCollisionEnter, null, this);
-
+*/
 
     }
 

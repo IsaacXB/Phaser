@@ -64,6 +64,7 @@ class entity {
         this.scene = scene;
         this.componentes = new Map();
         this.activeComponents = [];
+        this.scene.addEntity(this);
     }
 
     getScene(){
@@ -115,12 +116,33 @@ class entity {
             this.activeComponents[i].update(time, delta);
         }
     }
+
+    sendMessage(sender, msg, arg,checkerReception = false){
+        let count = 0;
+        for (var i =0; i< this.activeComponents.length; i++)
+        {
+            let fun  = this.activeComponents[i][msg];
+            if (fun != undefined){
+                this.call(this.activeComponents[i], sender, arg);
+                count++;
+            }
+        }
+        if (count > 0 && checkerReception)
+        {
+            console.error("Nobody heard the message: " + msg);
+        }
+    }
 }
 
 class Component{
     constructor(entidad) {
-        this.entidad = entidad;
+        this.init(entidad);
         this.enabled = true;
+    }
+
+    init(entidad){
+        this.entidad = entidad;
+
     }
 
     getEntity(){
@@ -150,9 +172,49 @@ class SpriteRender extends Phaser.Physics.Arcade.Sprite{
         super(entity.getScene(), x, y, sprite);
         this.componentInit(entity);
         this.entidad.getScene().add.existing(this);
+    }
+
+    start(time){
+
+    }
+    update(time, delta){
 
     }
 }
 
 SpriteRender.prototype.getEntity = Component.prototype.getEntity;
 SpriteRender.prototype.componentInit = Component.prototype.init;
+
+class RigidBody extends Component{
+    constructor(entity, gravity, ftype) {
+        super(entity);
+        this.gravity = gravity;
+        this.ftype = ftype;
+        this.sprite = undefined;
+    }
+
+    setPhysicType(ftype){
+        this.ftype = ftype;
+    }
+
+    allowGravity(gravity){
+        this.sprite.body.allowGravity(gravity);
+    }
+
+    start(){
+        this.sprite = this.getEntity().getComponent("SpriteRender");
+        this.getEntity().getScene().physics.addExisting(this.sprite);
+        if (this.gravity != undefined)
+        {
+            this.sprite.body.allowGravity(this.gravity);
+        }
+        if (this.ftype != undefined)
+        {
+            this.sprite.body.allowGravity(this.ftype);
+        }
+    }
+
+    update(time, delta){
+
+    }
+}
