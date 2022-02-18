@@ -121,7 +121,7 @@ class MainScene extends Phaser.Scene {
             fontFamily: 'verdana, arial, sans-serif'
         }).setOrigin(0.5);
 
-        //Boton replay para reiniciar el juego.
+        //Boton replay para reiniciar el game.
         var returnButton = this.add.sprite(400, 280, 'sprites_return').setOrigin(0.5);
         returnButton.setScale(0.30);
 

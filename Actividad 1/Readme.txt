@@ -8,17 +8,17 @@ Adicionalmente he hecho algunas mejoras al proyecto original y espero haber podi
 
 Todo me esta funcionando correctamente localmente, espero que lo puedas correr sin problema.
 
-La idea que tuve fue mostrar en el canvas algunos conceptos básicos de los personajes y objetos básicos que he estado pensando para un juego 2d de aventura estilo plataforma.
+La idea que tuve fue mostrar en el canvas algunos conceptos básicos de los personajes y objetos básicos que he estado pensando para un game 2d de aventura estilo plataforma.
 
 El proyecto cuenta con una pagina html, llamada index, que es nuestra pagina principal y donde se cargan los archivos javascript y la hoja de estilos.
 
-El proyecto cuenta con hoja de estilos con archivo independiente, al igual que se cuenta con 2 scripts donde Main contiene la lógica principal de este juego y gamecharacter tiene la clase base de nuestros personajes y actores.
+El proyecto cuenta con hoja de estilos con archivo independiente, al igual que se cuenta con 2 scripts donde Main contiene la lógica principal de este game y gamecharacter tiene la clase base de nuestros personajes y actores.
 
 Se definieron variables globales y varias funciones y metodos para cumplir con los requerimientos de la actividad.
 
-Este concepto básico de juego, cuenta con 3 botones, que hacen llamadas a los métodos y funciones del objeto.
+Este concepto básico de game, cuenta con 3 botones, que hacen llamadas a los métodos y funciones del objeto.
 
-El objetivo es que con 1 boton podemos atacar al enemigo, con el 2 boton podemos atacar a nuestro heroe, cuando la vida de cualquiera de ellos llega a 0, el juego indica que ha terminado y que se debe reiniciar, usando el 3 boton. 
+El objetivo es que con 1 boton podemos atacar al enemigo, con el 2 boton podemos atacar a nuestro heroe, cuando la vida de cualquiera de ellos llega a 0, el game indica que ha terminado y que se debe reiniciar, usando el 3 boton.
 
 En el canvas se actualiza la vida de ambos y se muestra un mensaje.
 
